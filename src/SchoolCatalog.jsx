@@ -24,8 +24,8 @@ export default function SchoolCatalog() {
           </tr>
         </thead>
         <tbody>
-          {info.map((col, index) => (
-            <tr key={index}>
+          {info.map((col) => (
+            <tr key={col.courseNumber}>
               <td>{col.trimester}</td>
               <td>{col.courseNumber}</td>
               <td>{col.courseName}</td>
