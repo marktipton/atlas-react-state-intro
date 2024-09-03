@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
+import Search from "./searchInput";
 
 export default function SchoolCatalog() {
   const [info, setData] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+
   useEffect(() => {
     fetch("../api/courses.json")
       .then((response) => response.json())
       .then((data) => setData(data));
   }, []);
 
+  const filteredCourses = info.filter((course) =>
+    course.courseName.includes(searchInput)
+  );
+
   return (
     <div className="school-catalog">
       <h1>School Catalog</h1>
-      <input type="text" placeholder="Search" />
+      <Search searchInput={searchInput} setSearchInput={setSearchInput} />
       <table>
         <thead>
           <tr>
@@ -24,7 +31,7 @@ export default function SchoolCatalog() {
           </tr>
         </thead>
         <tbody>
-          {info.map((col) => (
+          {filteredCourses.map((col) => (
             <tr key={col.courseNumber}>
               <td>{col.trimester}</td>
               <td>{col.courseNumber}</td>
