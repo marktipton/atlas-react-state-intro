@@ -4,6 +4,7 @@ import Search from "./Search";
 export default function SchoolCatalog() {
   const [info, setInfo] = useState([]);
   const [filteredInfo, setFilteredInfo] = useState([]);
+  const [sort, setSort] = useState({ key: null, direction: "ascending" });
 
   useEffect(() => {
     fetch("../api/courses.json")
@@ -22,6 +23,25 @@ export default function SchoolCatalog() {
     );
     setFilteredInfo(filteredData);
   };
+  // sort in opposite direction of current
+  const handleSort = (column) => {
+    let direction = "ascending";
+    if (sort.key === column && sort.direction === "ascending") {
+      direction = "descending";
+    }
+    setSort({ key: column, direction });
+    // creates shallow copy to sort data through comparisons
+    const sortedData = [...filteredInfo].sort((x, y) => {
+      if (x[column] < y[column]) {
+        return direction === "ascending" ? -1 : 1;
+      }
+      if (x[column] > y[column]) {
+        return direction === "ascending" ? 1 : -1;
+      }
+      return 0;
+    });
+    setFilteredInfo(sortedData);
+  };
 
   return (
     <div className="school-catalog">
@@ -30,7 +50,7 @@ export default function SchoolCatalog() {
       <table>
         <thead>
           <tr>
-            <th>Trimester</th>
+            <th onClick={() => handleSort("trimester")}>Trimester</th>
             <th>Course Number</th>
             <th>Courses Name</th>
             <th>Semester Credits</th>
