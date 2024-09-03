@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Search from "./searchInput";
+import Search from "./Search";
 
 export default function SchoolCatalog() {
   const [info, setData] = useState([]);
@@ -12,7 +12,7 @@ export default function SchoolCatalog() {
   }, []);
 
   const filteredCourses = info.filter((course) =>
-    course.courseName.includes(searchInput)
+    course.courseName.toLowerCase().startsWith(searchInput.toLowerCase())
   );
 
   return (
