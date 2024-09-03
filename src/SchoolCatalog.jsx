@@ -12,7 +12,7 @@ export default function SchoolCatalog() {
   }, []);
 
   const filteredCourses = info.filter((course) =>
-    course.courseName.toLowerCase().startsWith(searchInput.toLowerCase())
+    course.courseName.toLowerCase().includes(searchInput.toLowerCase())
   );
 
   return (
