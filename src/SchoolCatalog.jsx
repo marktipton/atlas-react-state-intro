@@ -26,10 +26,12 @@ export default function SchoolCatalog() {
   // sort in opposite direction of current
   const handleSort = (column) => {
     let direction = "ascending";
+    // check the key of the column being click and its current sort direction
     if (sort.key === column && sort.direction === "ascending") {
       direction = "descending";
     }
     setSort({ key: column, direction });
+
     // creates shallow copy to sort data through comparisons
     const sortedData = [...filteredInfo].sort((x, y) => {
       if (x[column] < y[column]) {
@@ -51,10 +53,14 @@ export default function SchoolCatalog() {
         <thead>
           <tr>
             <th onClick={() => handleSort("trimester")}>Trimester</th>
-            <th>Course Number</th>
-            <th>Courses Name</th>
-            <th>Semester Credits</th>
-            <th>Total Clock Hours</th>
+            <th onClick={() => handleSort("courseNumber")}>Course Number</th>
+            <th onClick={() => handleSort("courseName")}>Courses Name</th>
+            <th onClick={() => handleSort("semesterCredits")}>
+              Semester Credits
+            </th>
+            <th onClick={() => handleSort("totalClockHours")}>
+              Total Clock Hours
+            </th>
             <th>Enroll</th>
           </tr>
         </thead>
