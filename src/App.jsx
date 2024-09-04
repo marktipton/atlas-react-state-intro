@@ -12,8 +12,14 @@ export default function App() {
     setEnrolledCourses((alreadyEnrolled) => [...alreadyEnrolled, course]);
   };
 
+  const drop = (courseNumber) => {
+    setEnrolledCourses((alreadyEnrolled) =>
+      alreadyEnrolled.filter((course) => course.courseNumber !== courseNumber)
+    );
+  };
+
   return (
-    <AppContext.Provider value={{ enrolledCourses, enroll }}>
+    <AppContext.Provider value={{ enrolledCourses, enroll, drop }}>
       <div>
         <Header />
         <SchoolCatalog />

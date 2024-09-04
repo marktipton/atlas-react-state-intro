@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "./App";
 
 export default function ClassSchedule() {
-  const { enrolledCourses } = useContext(AppContext);
+  const { enrolledCourses, drop } = useContext(AppContext);
 
   return (
     <div className="class-schedule">
@@ -24,7 +24,7 @@ export default function ClassSchedule() {
                 <td>{col.courseNumber}</td>
                 <td>{col.courseName}</td>
                 <td>
-                  <button>Drop</button>
+                  <button onClick={() => drop(col.courseNumber)}>Drop</button>
                 </td>
               </tr>
             ))}
