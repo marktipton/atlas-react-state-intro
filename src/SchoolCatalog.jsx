@@ -5,6 +5,13 @@ export default function SchoolCatalog() {
   const [info, setInfo] = useState([]);
   const [filteredInfo, setFilteredInfo] = useState([]);
   const [sort, setSort] = useState({ key: null, direction: "ascending" });
+  const [page, setPage] = useState(1);
+
+  const PAGE_SIZE = 5;
+  const currentPage = data.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  // track page boundaries to disable next/prev when at boundary of data
+  const hasMore = data.length > page * PAGE_SIZE;
+  const hasLess = page > 1;
 
   useEffect(() => {
     fetch("../api/courses.json")
@@ -80,8 +87,12 @@ export default function SchoolCatalog() {
         </tbody>
       </table>
       <div className="pagination">
-        <button>Previous</button>
-        <button>Next</button>
+        <button disabled={!hasLess} onClick={() => setPage(page - 1)}>
+          Previous
+        </button>
+        <button disabled={!hasMore} onClick={() => setPage(page + 1)}>
+          Next
+        </button>
       </div>
     </div>
   );
