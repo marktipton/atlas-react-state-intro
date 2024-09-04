@@ -59,6 +59,13 @@ export default function SchoolCatalog() {
     setPage(1); // reset page after sorting
   };
 
+  const getSortArrow = (column) => {
+    if (sort.key === column) {
+      return sort.direction === "ascending" ? " ↑" : " ↓";
+    }
+    return "";
+  };
+
   return (
     <div className="school-catalog">
       <h1>School Catalog</h1>
@@ -66,14 +73,20 @@ export default function SchoolCatalog() {
       <table>
         <thead>
           <tr>
-            <th onClick={() => handleSort("trimester")}>Trimester</th>
-            <th onClick={() => handleSort("courseNumber")}>Course Number</th>
-            <th onClick={() => handleSort("courseName")}>Courses Name</th>
+            <th onClick={() => handleSort("trimester")}>
+              Trimester{getSortArrow("trimester")}
+            </th>
+            <th onClick={() => handleSort("courseNumber")}>
+              Course Number{getSortArrow("courseNumber")}
+            </th>
+            <th onClick={() => handleSort("courseName")}>
+              Courses Name{getSortArrow("courseName")}
+            </th>
             <th onClick={() => handleSort("semesterCredits")}>
-              Semester Credits
+              Semester Credits{getSortArrow("semesterCredits")}
             </th>
             <th onClick={() => handleSort("totalClockHours")}>
-              Total Clock Hours
+              Total Clock Hours{getSortArrow("totalClockHours")}
             </th>
             <th>Enroll</th>
           </tr>
