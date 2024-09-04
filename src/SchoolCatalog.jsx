@@ -8,9 +8,12 @@ export default function SchoolCatalog() {
   const [page, setPage] = useState(1);
 
   const PAGE_SIZE = 5;
-  const currentPage = data.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const currentPage = filteredInfo.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
+  );
   // track page boundaries to disable next/prev when at boundary of data
-  const hasMore = data.length > page * PAGE_SIZE;
+  const hasMore = filteredInfo.length > page * PAGE_SIZE;
   const hasLess = page > 1;
 
   useEffect(() => {
@@ -29,6 +32,7 @@ export default function SchoolCatalog() {
         course.courseNumber.toLowerCase().includes(searchInput.toLowerCase())
     );
     setFilteredInfo(filteredData);
+    setPage(1); // reset page after filtering
   };
   // sort in opposite direction of current
   const handleSort = (column) => {
@@ -50,6 +54,7 @@ export default function SchoolCatalog() {
       return 0;
     });
     setFilteredInfo(sortedData);
+    setPage(1); // reset page after sorting
   };
 
   return (
@@ -72,7 +77,7 @@ export default function SchoolCatalog() {
           </tr>
         </thead>
         <tbody>
-          {filteredInfo.map((col) => (
+          {currentPage.map((col) => (
             <tr key={col.courseNumber}>
               <td>{col.trimester}</td>
               <td>{col.courseNumber}</td>
