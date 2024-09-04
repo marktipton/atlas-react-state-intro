@@ -28,6 +28,7 @@ export default function App() {
     setEnrolledCourses((previousCourses) =>
       previousCourses.filter((course) => course.courseNumber !== courseNumber)
     );
+    toast.info(`Dropped course ${courseNumber}`);
   };
 
   return (
