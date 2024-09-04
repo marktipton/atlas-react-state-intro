@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Search from "./Search";
+import { AppContext } from "./App";
 
 export default function SchoolCatalog() {
+  const { enroll } = useContext(AppContext);
   const [info, setInfo] = useState([]);
   const [filteredInfo, setFilteredInfo] = useState([]);
   const [sort, setSort] = useState({ key: null, direction: "ascending" });
@@ -85,7 +87,7 @@ export default function SchoolCatalog() {
               <td>{col.semesterCredits}</td>
               <td>{col.totalClockHours}</td>
               <td>
-                <button>Enroll</button>
+                <button onClick={() => enroll(col)}>Enroll</button>
               </td>
             </tr>
           ))}
